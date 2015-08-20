@@ -1617,7 +1617,8 @@
             var ctx = this.ctx,
                 yLabelGap = (this.endPoint - this.startPoint) / this.steps,
                 yScaleStart,
-                xLabelModulo = xLabelsCount ? Math.floor((this.xLabels.length - 1) / (xLabelsCount - 1)) : void(0);
+                xLabelModulo = xLabelsCount ? Math.floor((this.xLabels.length - 1) / (xLabelsCount - 1)) : void(0),
+                labelsRendered = 0;
 
             if (yAxisOrientation === 'right') {
                 yScaleStart = Math.round(ctx.canvas.style.width.match(/\d+/));
@@ -1700,7 +1701,8 @@
                     ctx.closePath();
 
                     ctx.save();
-                    xPos = index == 0 ? xPos + 35 : index + 2 != this.xLabels.length ? xPos + 15 : xPos; // we decremented 1 from index and incremented 1 to devider thus the +2
+
+                    xPos = yAxisOrientation == 'right' ? index == 0 ? xPos + 40 : index + 1 != this.xLabels.length ? xPos + 20 : xPos - 20 : xPos;
                     ctx.translate(xPos, (isRotated) ? this.endPoint + 12 : this.endPoint + 8);
                     ctx.rotate(rotateXLabel ? xLabelRotation : 0);
                     ctx.font = this.font;
